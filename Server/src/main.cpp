@@ -1,7 +1,10 @@
 #include "../../ISmart.h"
-#include "action/test.h"
 #include "../../Socket_Server.h"
 #include "../../SendHelper.h"
+
+#include "action/test.h"
+#include "action/getTemp.h"
+#include "action/setWaterHeater.h"
 
 #include <iostream>
 #include <utility>
@@ -126,6 +129,9 @@ int main(int argc, char ** argv)
     }
 
     registerHeader(new Test());
+    registerHeader(new getTemp());
+    registerHeader(new setWaterHeater());
+
     creatServer(atoi(argv[1]), argv[2]);
     gIsTest = true;
 
