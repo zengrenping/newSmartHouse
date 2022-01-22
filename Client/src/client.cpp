@@ -1,5 +1,6 @@
 #include "../../ISmart.h"
 #include "../../Socket_Server.h"
+#include "../../SendHelper.h"
 
 #include <iostream>
 #include <utility>

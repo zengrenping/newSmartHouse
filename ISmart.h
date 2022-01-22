@@ -9,7 +9,8 @@
 #include "Socket_Server.h"
 
 #define TEST_CMD 0x01
-#define WIFI_TEST_CMD 0x02
+#define GET_TEMP 0x02               //温度获取
+#define SET_WATER_HEATER 0x03       //温度获取
 
 class ISmart {
 public:

@@ -38,7 +38,6 @@ public:
     void setFd();
     int getAcceptFd() {return this->acceptFd;}
     void setAcceptFd();
-    // char *getData() {return data;}
     CLINE_DATA *getClinet(int acceptFd);
     std::map<int, CLINE_DATA> getClientList();
 
@@ -48,8 +47,6 @@ private:
     int clintNum = 0;
     std::map <int, CLINE_DATA> client;
     unsigned short port;
-    // char data[64] = {0};
-
 };
 
 #endif
