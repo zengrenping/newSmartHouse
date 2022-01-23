@@ -1,17 +1,23 @@
 TARGET = smartHouse
 
 SRCDIRS = $(shell find . -maxdepth 8 -type d)
-SRS_CPP = $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.cpp))
-SRS_CPP += ../Socket_Server.cpp ../SendHelper.cpp
-
+SRS_CPP = $(foreach dir, $(SRCDIRS) .., $(wildcard $(dir)/*.cpp))
+DEP_FILES = $(foreach dir, $(SRCDIRS) .., $(wildcard $(dir)/*.d))
 OBJ_CPP = $(SRS_CPP:.cpp=.o)
 
 LOCAL_CPPFLAGS = -std=c++11
 LOCAL_LDFLAGS = -lpthread
 
-%.o: %.cpp
-	g++ -c -o $@ $^ $(LOCAL_CPPFLAGS) $(LOCAL_LDFLAGS)
 $(TARGET) : $(OBJ_CPP)
 	g++ -o $@ $^ $(LOCAL_CPPFLAGS) $(LOCAL_LDFLAGS)
+
+ifneq ($(DEP_FILES),)
+include $(DEP_FILES)
+endif
+
+%.o: %.cpp
+	g++ -c -o $@ $< -MD -MF $@.d $(LOCAL_CPPFLAGS) $(LOCAL_LDFLAGS)
+
 clean:
-	rm -rf ./smartHouse ./src/*.o ./src/action/*.o ../*.o
+	rm -rf ./smartHouse $(OBJ_CPP)
+	rm -rf $(DEP_FILES)
